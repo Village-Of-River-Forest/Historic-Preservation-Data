@@ -97,30 +97,36 @@
       return obj;
     });
   }
-
-  fetch('data.csv')
-    .then(res => res.text())
-    .then(text => {
-      const records = parseCSV(text);
-      const table = $('#csvTable').DataTable({
-        data: records,
-        columns: [
-          { data: 'Street Number' },
-          { data: 'Street' },
-          { data: 'Architect' }
-        ],
-        pageLength: 10,
-        lengthChange: false
-      });
-
-      $('#csvTable tbody').on('click', 'tr', function() {
-        $('#csvTable tbody tr').removeClass('selected');
-        $(this).addClass('selected');
-
-        const item = table.row(this).data();
-        displayRecord(item);
-      });
+fetch('data.csv')
+  .then(res => res.text())
+  .then(text => {
+    const records = parseCSV(text);
+    const table = $('#csvTable').DataTable({
+      data: records,
+      columns: [
+        { data: 'Street Number' },
+        { data: 'Street' },
+        { data: 'Architect' }
+      ],
+      pageLength: 10,
+      lengthChange: false
     });
+
+    // Select first row by default on load
+    $('#csvTable tbody tr').eq(0).addClass('selected');
+    const firstItem = table.row(0).data();
+    if (firstItem) {
+      displayRecord(firstItem);
+    }
+
+    $('#csvTable tbody').on('click', 'tr', function() {
+      $('#csvTable tbody tr').removeClass('selected');
+      $(this).addClass('selected');
+
+      const item = table.row(this).data();
+      displayRecord(item);
+    });
+  });
 
   function displayRecord(item) {
     ['Street Number','Former Street Number','Street','PIN Number(s)',
