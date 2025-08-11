@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>CSV Viewer with DataTables</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   
   <!-- Bootstrap & DataTables CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css" rel="stylesheet" />
 
   <!-- jQuery & DataTables JS -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -16,6 +16,10 @@
   <style>
     .info-label { font-weight: 500; }
     .image-display { max-width: 100%; max-height: 300px; margin-bottom: 15px; object-fit: cover; }
+    /* Highlight selected row */
+    tr.selected {
+      background-color: #d0ebff !important;
+    }
   </style>
 </head>
 <body>
@@ -40,7 +44,7 @@
         <!-- Left Side Info -->
         <div class="col-md-6">
           <h4 class="mb-4">Property Information</h4>
-          <img id="recordImage" class="image-display d-none" alt="Property Image">
+          <img id="recordImage" class="image-display d-none" alt="Property Image" />
           <ul class="list-group">
             <li class="list-group-item"><span class="info-label">Street Number:</span> <span id="Street Number"></span></li>
             <li class="list-group-item"><span class="info-label">Former Street Number:</span> <span id="Former Street Number"></span></li>
@@ -105,6 +109,11 @@
       });
 
       $('#csvTable tbody').on('click', 'tr', function() {
+        // Remove highlight from other rows
+        $('#csvTable tbody tr').removeClass('selected');
+        // Highlight the clicked row
+        $(this).addClass('selected');
+
         const item = table.row(this).data();
         displayRecord(item);
       });
