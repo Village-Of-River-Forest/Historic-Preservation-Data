@@ -112,13 +112,6 @@ fetch('data.csv')
       lengthChange: false
     });
 
-    // Select first row by default on load
-    $('#csvTable tbody tr').eq(0).addClass('selected');
-    const firstItem = table.row(0).data();
-    if (firstItem) {
-      displayRecord(firstItem);
-    }
-
     $('#csvTable tbody').on('click', 'tr', function() {
       $('#csvTable tbody tr').removeClass('selected');
       $(this).addClass('selected');
@@ -127,6 +120,7 @@ fetch('data.csv')
       displayRecord(item);
     });
   });
+
 
 function displayRecord(item) {
   // Combined address
