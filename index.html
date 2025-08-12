@@ -20,6 +20,13 @@
     tr.selected {
       background-color: #d0ebff !important;
     }
+
+.card-header.evaluation { color: #003366; }       /* Dark Blue */
+.card-header.architectural { color: #ce2029; }    /* Firehydrant Red */
+.card-header.research { color: #ffcc00; }         /* Golden Yellow */
+.card-header.survey { color: #d2b48c; }           /* Tan */
+.card-header.notes { color: #5c4033; }            /* Brown */
+
   </style>
 </head>
 <body>
@@ -66,26 +73,26 @@
         <!-- Right Side Cards -->
         <div class="col-md-6">
           <h4 class="mb-4">Details</h4>
-          <div class="card mb-3">
-            <div class="card-header">Evaluation</div>
-            <div class="card-body" id="evaluation"></div>
-          </div>
-          <div class="card mb-3">
-            <div class="card-header">Architectural</div>
-            <div class="card-body" id="architectural"></div>
-          </div>
-          <div class="card mb-3">
-            <div class="card-header">Research</div>
-            <div class="card-body" id="research"></div>
-          </div>
-          <div class="card mb-3">
-            <div class="card-header">Survey</div>
-            <div class="card-body" id="survey"></div>
-          </div>
-          <div class="card mb-3">
-            <div class="card-header">Notes</div>
-            <div class="card-body" id="notes"></div>
-          </div>
+<div class="card mb-3">
+  <div class="card-header evaluation">Evaluation</div>
+  <div class="card-body" id="evaluation"></div>
+</div>
+<div class="card mb-3">
+  <div class="card-header architectural">Architectural</div>
+  <div class="card-body" id="architectural"></div>
+</div>
+<div class="card mb-3">
+  <div class="card-header research">Research</div>
+  <div class="card-body" id="research"></div>
+</div>
+<div class="card mb-3">
+  <div class="card-header survey">Survey</div>
+  <div class="card-body" id="survey"></div>
+</div>
+<div class="card mb-3">
+  <div class="card-header notes">Notes</div>
+  <div class="card-body" id="notes"></div>
+</div>
         </div> <!-- end right side col -->
       </div> <!-- end row -->
     </div> <!-- end col-md-10 -->
