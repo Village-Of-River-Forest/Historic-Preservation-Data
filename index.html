@@ -169,7 +169,7 @@
     // Combined address
     document.getElementById('combinedAddress').textContent = (item['Street Number'] || '') + ' ' + (item['Street Name'] || '');
 
-    ['Street Number','Former Street Number','Street','Preparer',
+    ['Street Number','Former Street Number','Street Name','Preparer',
      'Survey Date','PIN Number(s)','Construction Date','Architect',
      'Current Function','Historic Function','Listing in Existing Survey','Survey Area'].forEach(f => {
       document.getElementById(f).textContent = item[f] || '';
