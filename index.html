@@ -72,7 +72,11 @@
           <!-- Combined Address -->
           <p id="combinedAddress" class="fs-5 fw-semibold mb-3"></p>
 
+          <div style="text-align: center;">
           <img id="recordImage" class="image-display d-none" alt="Property Image" />
+          <img id="recordImage2" class="image-display d-none" alt="Property Image2" />
+          </div>
+
           <ul class="list-group">
             <li class="list-group-item"><span class="info-label">Street Number:</span> <span id="Street Number"></span></li>
             <li class="list-group-item"><span class="info-label">Former Street Number:</span> <span id="Former Street Number"></span></li>
@@ -169,8 +173,13 @@
 
 
     const img = document.getElementById('recordImage');
-    img.src = 'images/' + (item['Image'] || '');
+    img.src = 'images/' + (item['Photo 1'] || '');
     img.classList.remove('d-none');
+
+    const img = document.getElementById('recordImage2');
+    img.src = 'images/' + (item['Photo 2'] || '');
+    img.classList.remove('d-none');
+
 
     ['Evaluation','Architectural','Research','Survey','Notes'].forEach(tab => {
       document.getElementById(tab.toLowerCase()).textContent = item[tab] || '';
