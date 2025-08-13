@@ -73,8 +73,8 @@
           <p id="combinedAddress" class="fs-5 fw-semibold mb-3"></p>
 
           <div style="text-align: center;">
-          <img id="recordImage" class="image-display d-none" alt="Property Image" />
-          <img id="recordImage2" class="image-display d-none" alt="Property Image2" />
+          <img id="recordImage" class="image-display d-none" alt="" />
+          <img id="recordImage2" class="image-display d-none" alt="" />
           </div>
 
           <ul class="list-group">
@@ -163,7 +163,7 @@
 
   function displayRecord(item) {
     // Combined address
-    document.getElementById('combinedAddress').textContent = (item['Street Number'] || '') + ' ' + (item['Street'] || '');
+    document.getElementById('combinedAddress').textContent = (item['Street Number'] || '') + ' ' + (item['Street Name'] || '');
 
     ['Street Number','Former Street Number','Street','Preparer',
      'Survey Date','PIN Number(s)','Construction Date','Architect',
