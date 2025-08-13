@@ -40,8 +40,32 @@
 }
 
     .info-label {
-  font-weight: bold;
+  font-weight: lighter;
 }
+
+.card-header {
+  position: relative;
+  user-select: none;
+}
+
+.card-header::after {
+  content: ">";  /* right-pointing arrow */
+  position: absolute;
+  right: 20px;
+  font-size: 1.2em;
+  transition: transform 0.3s ease;
+}
+
+.card-header[aria-expanded="true"]::after {
+  content: "▼"; /* down-pointing arrow when expanded */
+  /* Or rotate the arrow instead of switching content: */
+  /* transform: rotate(90deg); */
+}
+
+.card-header:hover {
+  background-color: #f0f0f0; /* subtle highlight */
+}
+
 
   </style>
        <div class="text-center mb-3">
@@ -68,144 +92,127 @@
 
   <div class="row justify-content-center mt-5">
     <div class="col-md-10">
-      <div class="row">
-        <!-- Left Side Info -->
-        <div class="col-md-6">
-          <h4 class="mb-4">Property Information</h4>
+        <div class="row">
+            <div class="col-12">
 
           <!-- Combined Address -->
-          <p id="combinedAddress" class="fs-5 fw-semibold mb-3"></p>
-
+          <h4 id="combinedAddress" class="fs-5 fw-semibold mb-3">Select an item from the list</h4>      
           <div style="text-align: center;">
           <img id="recordImage" class="image-display d-none" alt="" />
           <img id="recordImage2" class="image-display d-none" alt="" />
           </div>
 
-          <ul class="list-group">
-            <li class="list-group-item"><span class="info-label">Street Number:</span> <span id="Street Number"></span></li>
-            <li class="list-group-item"><span class="info-label">Former Street Number:</span> <span id="Former Street Number"></span></li>
-            <li class="list-group-item"><span class="info-label">Preparer:</span> <span id="Preparer"></span></li>
-            <li class="list-group-item"><span class="info-label">Street Name:</span> <span id="Street Name"></span></li>
-            <li class="list-group-item"><span class="info-label">Survey Date:</span> <span id="Survey Date"></span></li>        
-            <li class="list-group-item"><span class="info-label">PIN Number(s):</span> <span id="PIN Number(s)"></span></li>
-            <li class="list-group-item"><span class="info-label">Construction Date:</span> <span id="Construction Date"></span></li>
-            
-            <li class="list-group-item"><span class="info-label">Architect:</span> <span id="Architect"></span></li>
-            <li class="list-group-item"><span class="info-label">Current Function:</span> <span id="Current Function"></span></li>
-            <li class="list-group-item"><span class="info-label">Historic Function:</span> <span id="Historic Function"></span></li>
-            <li class="list-group-item"><span class="info-label">Listing in Existing Survey:</span> <span id="Listing in Existing Survey"></span></li>
-            <li class="list-group-item"><span class="info-label">Survey Area:</span> <span id="Survey Area"></span></li>
-          </ul>
-        </div>
-
-        <!-- Right Side Cards -->
-        <div class="col-md-6">
-          <h4 class="mb-4">Details</h4>
+       <!-- Property Information -->
 <div class="card mb-3">
-  <div class="card-header evaluation">Evaluation</div>
-  <div class="card-body">
-    <ul class="list-group">
-      <li class="list-group-item"><span class="info-label">Condition:</span> <span id="Condition"></span></li>
-      <li class="list-group-item"><span class="info-label">Integrity:</span> <span id="Integrity"></span></li>
-      <li class="list-group-item"><span class="info-label">Secondary Structure:</span> <span id="Secondary Structure"></span></li>
-      <li class="list-group-item"><span class="info-label">Secondary Structure Condition:</span> <span id="Secondary Structure Condition"></span></li>
-      <li class="list-group-item"><span class="info-label">Secondary Structure Integrity:</span> <span id="Secondary Structure Integrity"></span></li>
-      <li class="list-group-item"><span class="info-label">Landmark or National Register:</span> <span id="Landmark or National Register"></span></li>
-      <li class="list-group-item"><span class="info-label">Significant:</span> <span id="Significant"></span></li>
-      <li class="list-group-item"><span class="info-label">National Register Criterion:</span> <span id="National Register Criterion"></span></li>
-      <li class="list-group-item"><span class="info-label">Contributing to a National Register District:</span> <span id="Contributing to a National Register District"></span></li>
-      <li class="list-group-item"><span class="info-label">Potentially Contributing to a National Register District:</span> <span id="Potentially Contributing to a National Register District"></span></li>
-      <li class="list-group-item"><span class="info-label">Noteworthy Buildings Less Than 50 Years Old:</span> <span id="Noteworthy Buildings Less Than 50 Years Old"></span></li>
-      <li class="list-group-item"><span class="info-label">Reason for Significance:</span> <span id="Reason for Significance"></span></li>
-    </ul>
-  </div>
-</div>
-
-<div class="card mb-3">
-  <div class="card-header evaluation">Architectural</div>
-<div class="card-body" id="architectural">
-  <div class="row">
-    <div class="col-md-6">
-      <ul class="list-group">
-        <li class="list-group-item"><span class="info-label">Architectural Classification or Style:</span> <span id="Architectural Classification or Style"></span></li>
-        <li class="list-group-item"><span class="info-label">Ornamentation:</span> <span id="Ornamentation"></span></li>
-        <li class="list-group-item"><span class="info-label">Vernacular Styles or Building Form:</span> <span id="Vernacular Styles or Building Form"></span></li>
-        <li class="list-group-item"><span class="info-label">Number of Stories:</span> <span id="Number of Stories"></span></li>
-        <li class="list-group-item"><span class="info-label">Current Wall Material 1:</span> <span id="Current Wall Material 1"></span></li>
-        <li class="list-group-item"><span class="info-label">Current Wall Material 2:</span> <span id="Current Wall Material 2"></span></li>
-        <li class="list-group-item"><span class="info-label">Original Wall Material 1:</span> <span id="Original Wall Material 1"></span></li>
-        <li class="list-group-item"><span class="info-label">Original Wall Material 2:</span> <span id="Original Wall Material 2"></span></li>
-        <li class="list-group-item"><span class="info-label">Wall Detailing or Ornamentation:</span> <span id="Wall Detailing or Ornamentation"></span></li>
-        <li class="list-group-item"><span class="info-label">Storefront Material:</span> <span id="Storefront Material"></span></li>
-        <li class="list-group-item"><span class="info-label">Roof Type:</span> <span id="Roof Type"></span></li>
-      </ul>
+    <div class="card-header evaluation" data-bs-toggle="collapse" data-bs-target="#propertyInfoCollapse" aria-expanded="true" aria-controls="propertyInfoCollapse" style="cursor:pointer;">
+      Property Information
+    </div>
+    <div id="propertyInfoCollapse" class="collapse show">
+      <div class="card-body">
+        <ul class="list-group">
+          <li class="list-group-item"><span class="info-label">Street Number:</span> <span id="Street Number"></span></li>
+          <li class="list-group-item"><span class="info-label">Former Street Number:</span> <span id="Former Street Number"></span></li>
+          <li class="list-group-item"><span class="info-label">Preparer:</span> <span id="Preparer"></span></li>
+          <li class="list-group-item"><span class="info-label">Street Name:</span> <span id="Street Name"></span></li>
+          <li class="list-group-item"><span class="info-label">Survey Date:</span> <span id="Survey Date"></span></li>        
+          <li class="list-group-item"><span class="info-label">PIN Number(s):</span> <span id="PIN Number(s)"></span></li>
+          <li class="list-group-item"><span class="info-label">Construction Date:</span> <span id="Construction Date"></span></li>
+          <li class="list-group-item"><span class="info-label">Architect:</span> <span id="Architect"></span></li>
+          <li class="list-group-item"><span class="info-label">Current Function:</span> <span id="Current Function"></span></li>
+          <li class="list-group-item"><span class="info-label">Historic Function:</span> <span id="Historic Function"></span></li>
+          <li class="list-group-item"><span class="info-label">Listing in Existing Survey:</span> <span id="Listing in Existing Survey"></span></li>
+          <li class="list-group-item"><span class="info-label">Survey Area:</span> <span id="Survey Area"></span></li>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
-
-
-    <div class="col-md-6">
-      <ul class="list-group">
-        <li class="list-group-item"><span class="info-label">Roof Material:</span> <span id="Roof Material"></span></li>
-        <li class="list-group-item"><span class="info-label">Roof Ornamentation:</span> <span id="Roof Ornamentation"></span></li>
-        <li class="list-group-item"><span class="info-label">Foundation Material or Form:</span> <span id="Foundation Material or Form"></span></li>
-        <li class="list-group-item"><span class="info-label">Door Detailing:</span> <span id="Door Detailing"></span></li>
-        <li class="list-group-item"><span class="info-label">Porch:</span> <span id="Porch"></span></li>
-        <li class="list-group-item"><span class="info-label">Dormers:</span> <span id="Dormers"></span></li>
-        <li class="list-group-item"><span class="info-label">Window Type:</span> <span id="Window Type"></span></li>
-        <li class="list-group-item"><span class="info-label">Window Configuration:</span> <span id="Window Configuration"></span></li>
-        <li class="list-group-item"><span class="info-label">Window Material:</span> <span id="Window Material"></span></li>
-        <li class="list-group-item"><span class="info-label">Window Detail:</span> <span id="Window Detail"></span></li>
-        <li class="list-group-item"><span class="info-label">Window Storms:</span> <span id="Window Storms"></span></li>
-        <li class="list-group-item"><span class="info-label">Significant Features:</span> <span id="Significant Features"></span></li>
-        <li class="list-group-item"><span class="info-label">Alterations:</span> <span id="Alterations"></span></li>
-      </ul>
+  
+  <!-- Evaluation -->
+  <div class="card mb-3">
+    <div class="card-header evaluation" data-bs-toggle="collapse" data-bs-target="#evaluationCollapse" aria-expanded="true" aria-controls="evaluationCollapse" style="cursor:pointer;">
+      Evaluation
+    </div>
+    <div id="evaluationCollapse" class="collapse show">
+      <div class="card-body">
+        <ul class="list-group">
+          <li class="list-group-item"><span class="info-label">Condition:</span> <span id="Condition"></span></li>
+          <li class="list-group-item"><span class="info-label">Integrity:</span> <span id="Integrity"></span></li>
+          <li class="list-group-item"><span class="info-label">Secondary Structure:</span> <span id="Secondary Structure"></span></li>
+          <li class="list-group-item"><span class="info-label">Secondary Structure Condition:</span> <span id="Secondary Structure Condition"></span></li>
+          <li class="list-group-item"><span class="info-label">Secondary Structure Integrity:</span> <span id="Secondary Structure Integrity"></span></li>
+          <li class="list-group-item"><span class="info-label">Landmark or National Register:</span> <span id="Landmark or National Register"></span></li>
+          <li class="list-group-item"><span class="info-label">Significant:</span> <span id="Significant"></span></li>
+          <li class="list-group-item"><span class="info-label">National Register Criterion:</span> <span id="National Register Criterion"></span></li>
+          <li class="list-group-item"><span class="info-label">Contributing to a National Register District:</span> <span id="Contributing to a National Register District"></span></li>
+          <li class="list-group-item"><span class="info-label">Potentially Contributing to a National Register District:</span> <span id="Potentially Contributing to a National Register District"></span></li>
+          <li class="list-group-item"><span class="info-label">Noteworthy Buildings Less Than 50 Years Old:</span> <span id="Noteworthy Buildings Less Than 50 Years Old"></span></li>
+          <li class="list-group-item"><span class="info-label">Reason for Significance:</span> <span id="Reason for Significance"></span></li>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
-
-<div class="card mb-3">
-  <div class="card-header evaluation">Research</div>
-<div class="card-body" id="research">
-  <div class="row">
-    <div class="col-md-6">
-      <ul class="list-group">
-        <li class="list-group-item"><span class="info-label">Original Building Owner:</span> <span id="Original Building Owner"></span></li>
-        <li class="list-group-item"><span class="info-label">Historic Name:</span> <span id="Historic Name"></span></li>
-        <li class="list-group-item"><span class="info-label">Current Name:</span> <span id="Current Name"></span></li>
-        <li class="list-group-item"><span class="info-label">Construction Cost:</span> <span id="Construction Cost"></span></li>
-        <li class="list-group-item"><span class="info-label">Architect 1 Information:</span> <span id="Architect 1 Information"></span></li>
-        <li class="list-group-item"><span class="info-label">Architect 2 Information:</span> <span id="Architect 2 Information"></span></li>
-        <li class="list-group-item"><span class="info-label">Contractor Information:</span> <span id="Contractor Information"></span></li>
-      </ul>
+  
+  <!-- Architectural -->
+  <div class="card mb-3">
+    <div class="card-header architectural" data-bs-toggle="collapse" data-bs-target="#architecturalCollapse" aria-expanded="true" aria-controls="architecturalCollapse" style="cursor:pointer;">
+      Architectural
     </div>
-    <div class="col-md-6">
-      <ul class="list-group">
-        <li class="list-group-item"><span class="info-label">Developer Information:</span> <span id="Developer Information"></span></li>
-        <li class="list-group-item"><span class="info-label">Research or Archival Information:</span> <span id="Research or Archival Information"></span></li>
-        <li class="list-group-item"><span class="info-label">Permit:</span> <span id="Permit"></span></li>
-        <li class="list-group-item"><span class="info-label">Subdivision:</span> <span id="Subdivision"></span></li>
-        <li class="list-group-item"><span class="info-label">Landscape or Streetscape:</span> <span id="Landscape or Streetscape"></span></li>
-      </ul>
+    <div id="architecturalCollapse" class="collapse show">
+      <div class="card-body">
+        <ul class="list-group">
+          <!-- your architectural list items here -->
+          <!-- ... -->
+        </ul>
+      </div>
     </div>
   </div>
-</div>
+  
+  <!-- Research -->
+  <div class="card mb-3">
+    <div class="card-header research" data-bs-toggle="collapse" data-bs-target="#researchCollapse" aria-expanded="true" aria-controls="researchCollapse" style="cursor:pointer;">
+      Research
+    </div>
+    <div id="researchCollapse" class="collapse show">
+      <div class="card-body">
+        <ul class="list-group">
+          <!-- your research list items here -->
+          <!-- ... -->
+        </ul>
+      </div>
+    </div>
   </div>
+  
+  <!-- Survey -->
+  <div class="card mb-3">
+    <div class="card-header survey" data-bs-toggle="collapse" data-bs-target="#surveyCollapse" aria-expanded="true" aria-controls="surveyCollapse" style="cursor:pointer;">
+      Survey
+    </div>
+    <div id="surveyCollapse" class="collapse show">
+      <div class="card-body">
+        <!-- survey content here -->
+      </div>
+    </div>
+  </div>
+  
+  <!-- Notes -->
+  <div class="card mb-3">
+    <div class="card-header notes" data-bs-toggle="collapse" data-bs-target="#notesCollapse" aria-expanded="true" aria-controls="notesCollapse" style="cursor:pointer;">
+      Notes
+    </div>
+    <div id="notesCollapse" class="collapse show">
+      <div class="card-body">
+        <!-- notes content here -->
+      </div>
+    </div>
+  </div>
+  
+
+</div>
 </div>
 
-<div class="card mb-3">
-  <div class="card-header survey">Survey</div>
-  <div class="card-body" id="survey"></div>
+
+
 </div>
-<div class="card mb-3">
-  <div class="card-header notes">Notes</div>
-  <div class="card-body" id="notes"></div>
-</div>
-        </div> <!-- end right side col -->
-      </div> <!-- end row -->
-    </div> <!-- end col-md-10 -->
-  </div> <!-- end row -->
-</div> <!-- end container -->
 
 <script>
   // Simple CSV-to-array parser
