@@ -121,13 +121,66 @@
   </div>
 </div>
 
-<div class="card mb-3">
-  <div class="card-header architectural">Architectural</div>
-  <div class="card-body" id="architectural"></div>
+<div class="card-body" id="architectural">
+  <div class="row">
+    <div class="col-md-6">
+      <ul class="list-group">
+        <li class="list-group-item"><span class="info-label">Architectural Classification or Style:</span> <span id="Architectural Classification or Style"></span></li>
+        <li class="list-group-item"><span class="info-label">Ornamentation:</span> <span id="Ornamentation"></span></li>
+        <li class="list-group-item"><span class="info-label">Vernacular Styles or Building Form:</span> <span id="Vernacular Styles or Building Form"></span></li>
+        <li class="list-group-item"><span class="info-label">Number of Stories:</span> <span id="Number of Stories"></span></li>
+        <li class="list-group-item"><span class="info-label">Current Wall Material 1:</span> <span id="Current Wall Material 1"></span></li>
+        <li class="list-group-item"><span class="info-label">Current Wall Material 2:</span> <span id="Current Wall Material 2"></span></li>
+        <li class="list-group-item"><span class="info-label">Original Wall Material 1:</span> <span id="Original Wall Material 1"></span></li>
+        <li class="list-group-item"><span class="info-label">Original Wall Material 2:</span> <span id="Original Wall Material 2"></span></li>
+        <li class="list-group-item"><span class="info-label">Wall Detailing or Ornamentation:</span> <span id="Wall Detailing or Ornamentation"></span></li>
+        <li class="list-group-item"><span class="info-label">Storefront Material:</span> <span id="Storefront Material"></span></li>
+        <li class="list-group-item"><span class="info-label">Roof Type:</span> <span id="Roof Type"></span></li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <ul class="list-group">
+        <li class="list-group-item"><span class="info-label">Roof Material:</span> <span id="Roof Material"></span></li>
+        <li class="list-group-item"><span class="info-label">Roof Ornamentation:</span> <span id="Roof Ornamentation"></span></li>
+        <li class="list-group-item"><span class="info-label">Foundation Material or Form:</span> <span id="Foundation Material or Form"></span></li>
+        <li class="list-group-item"><span class="info-label">Door Detailing:</span> <span id="Door Detailing"></span></li>
+        <li class="list-group-item"><span class="info-label">Porch:</span> <span id="Porch"></span></li>
+        <li class="list-group-item"><span class="info-label">Dormers:</span> <span id="Dormers"></span></li>
+        <li class="list-group-item"><span class="info-label">Window Type:</span> <span id="Window Type"></span></li>
+        <li class="list-group-item"><span class="info-label">Window Configuration:</span> <span id="Window Configuration"></span></li>
+        <li class="list-group-item"><span class="info-label">Window Material:</span> <span id="Window Material"></span></li>
+        <li class="list-group-item"><span class="info-label">Window Detail:</span> <span id="Window Detail"></span></li>
+        <li class="list-group-item"><span class="info-label">Window Storms:</span> <span id="Window Storms"></span></li>
+        <li class="list-group-item"><span class="info-label">Significant Features:</span> <span id="Significant Features"></span></li>
+        <li class="list-group-item"><span class="info-label">Alterations:</span> <span id="Alterations"></span></li>
+      </ul>
+    </div>
+  </div>
 </div>
-<div class="card mb-3">
-  <div class="card-header research">Research</div>
-  <div class="card-body" id="research"></div>
+
+<div class="card-body" id="research">
+  <div class="row">
+    <div class="col-md-6">
+      <ul class="list-group">
+        <li class="list-group-item"><span class="info-label">Original Building Owner:</span> <span id="Original Building Owner"></span></li>
+        <li class="list-group-item"><span class="info-label">Historic Name:</span> <span id="Historic Name"></span></li>
+        <li class="list-group-item"><span class="info-label">Current Name:</span> <span id="Current Name"></span></li>
+        <li class="list-group-item"><span class="info-label">Construction Cost:</span> <span id="Construction Cost"></span></li>
+        <li class="list-group-item"><span class="info-label">Architect 1 Information:</span> <span id="Architect 1 Information"></span></li>
+        <li class="list-group-item"><span class="info-label">Architect 2 Information:</span> <span id="Architect 2 Information"></span></li>
+        <li class="list-group-item"><span class="info-label">Contractor Information:</span> <span id="Contractor Information"></span></li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <ul class="list-group">
+        <li class="list-group-item"><span class="info-label">Developer Information:</span> <span id="Developer Information"></span></li>
+        <li class="list-group-item"><span class="info-label">Research or Archival Information:</span> <span id="Research or Archival Information"></span></li>
+        <li class="list-group-item"><span class="info-label">Permit:</span> <span id="Permit"></span></li>
+        <li class="list-group-item"><span class="info-label">Subdivision:</span> <span id="Subdivision"></span></li>
+        <li class="list-group-item"><span class="info-label">Landscape or Streetscape:</span> <span id="Landscape or Streetscape"></span></li>
+      </ul>
+    </div>
+  </div>
 </div>
 <div class="card mb-3">
   <div class="card-header survey">Survey</div>
@@ -222,6 +275,56 @@
 ].forEach(field => {
   document.getElementById(field).textContent = item[field] || '';
 });
+
+
+[
+  'Architectural Classification or Style',
+  'Ornamentation',
+  'Vernacular Styles or Building Form',
+  'Number of Stories',
+  'Current Wall Material 1',
+  'Current Wall Material 2',
+  'Original Wall Material 1',
+  'Original Wall Material 2',
+  'Wall Detailing or Ornamentation',
+  'Storefront Material',
+  'Roof Type',
+  'Roof Material',
+  'Roof Ornamentation',
+  'Foundation Material or Form',
+  'Door Detailing',
+  'Porch',
+  'Dormers',
+  'Window Type',
+  'Window Configuration',
+  'Window Material',
+  'Window Detail',
+  'Window Storms',
+  'Significant Features',
+  'Alterations'
+].forEach(field => {
+  document.getElementById(field).textContent = item[field] || '';
+});
+
+[
+  'Original Building Owner',
+  'Historic Name',
+  'Current Name',
+  'Construction Cost',
+  'Architect 1 Information',
+  'Architect 2 Information',
+  'Contractor Information',
+  'Developer Information',
+  'Research or Archival Information',
+  'Permit',
+  'Subdivision',
+  'Landscape or Streetscape'
+].forEach(field => {
+  document.getElementById(field).textContent = item[field] || '';
+});
+
+
+
     
   }
 </script>
