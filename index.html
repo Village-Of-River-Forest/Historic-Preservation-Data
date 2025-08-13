@@ -161,11 +161,12 @@
     // Combined address
     document.getElementById('combinedAddress').textContent = (item['Street Number'] || '') + ' ' + (item['Street'] || '');
 
-    ['Street Number','Former Street Number','Street','PIN Number(s)',
-     'Construction Date','Architect','Category','Historic Function',
-     'Listing in Existing Survey','Survey Area'].forEach(f => {
+    ['Street Number','Former Street Number','Street','Preparer',
+     'Survey Date','PIN Number(s)','Construction Date','Architect',
+     'Current Function','Historic Function','Listing in Existing Survey','Survey Area'].forEach(f => {
       document.getElementById(f).textContent = item[f] || '';
     });
+
 
     const img = document.getElementById('recordImage');
     img.src = 'images/' + (item['Image'] || '');
