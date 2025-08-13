@@ -21,11 +21,7 @@
       background-color: #d0ebff !important;
     }
 
-.card-header.evaluation { color: #003366; }       /* Dark Blue */
-.card-header.architectural { color: #ce2029; }    /* Firehydrant Red */
-.card-header.research { color: #964B00; }         /* Golden Yellow */
-.card-header.survey { color: #d2b48c; }           /* Tan */
-.card-header.notes { color: #5c4033; }            /* Brown */
+
 
     body {
   background-color: #083754;
@@ -46,6 +42,7 @@
 .card-header {
   position: relative;
   user-select: none;
+  color: #003366; 
 }
 
 .card-header::after {
@@ -66,6 +63,53 @@
   background-color: #f0f0f0; /* subtle highlight */
 }
 
+#csvTable {
+    width: 100%;
+    table-layout: fixed; /* Even column widths */
+  }
+
+  /* Style headers and cells for neatness */
+  #csvTable th, #csvTable td {
+    text-align: center;
+    padding: 8px;
+    word-wrap: break-word;
+    white-space: normal;
+  }
+
+  /* Optional: Set specific widths (percentages can be adjusted as needed) */
+  #csvTable th:nth-child(1),
+  #csvTable td:nth-child(1) {
+    width: 15%;
+  }
+
+  #csvTable th:nth-child(2),
+  #csvTable td:nth-child(2) {
+    width: 20%;
+  }
+
+  #csvTable th:nth-child(3),
+  #csvTable td:nth-child(3) {
+    width: 35%;
+  }
+
+  #csvTable th:nth-child(4),
+  #csvTable td:nth-child(4) {
+    width: 30%;
+  }
+</style>
+
+<!-- Your Table -->
+<table id="csvTable" class="display">
+  <thead>
+    <tr>
+      <th>Street Number</th>
+      <th>Former Street Number</th>
+      <th>Street Name</th>
+      <th>PIN Number(s)</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
 
   </style>
        <div class="text-center mb-3">
@@ -133,7 +177,7 @@
     <div class="card-header evaluation" data-bs-toggle="collapse" data-bs-target="#evaluationCollapse" aria-expanded="true" aria-controls="evaluationCollapse" style="cursor:pointer;">
       Evaluation
     </div>
-    <div id="evaluationCollapse" class="collapse show">
+    <div id="evaluationCollapse" class="collapse">
       <div class="card-body">
         <ul class="list-group">
           <li class="list-group-item"><span class="info-label">Condition:</span> <span id="Condition"></span></li>
@@ -158,7 +202,7 @@
     <div class="card-header architectural" data-bs-toggle="collapse" data-bs-target="#architecturalCollapse" aria-expanded="true" aria-controls="architecturalCollapse" style="cursor:pointer;">
       Architectural
     </div>
-    <div id="architecturalCollapse" class="collapse show">
+    <div id="architecturalCollapse" class="collapse">
       <div class="card-body">
         <ul class="list-group">
           <!-- your architectural list items here -->
@@ -173,7 +217,7 @@
     <div class="card-header research" data-bs-toggle="collapse" data-bs-target="#researchCollapse" aria-expanded="true" aria-controls="researchCollapse" style="cursor:pointer;">
       Research
     </div>
-    <div id="researchCollapse" class="collapse show">
+    <div id="researchCollapse" class="collapse">
       <div class="card-body">
         <ul class="list-group">
           <!-- your research list items here -->
@@ -188,7 +232,7 @@
     <div class="card-header survey" data-bs-toggle="collapse" data-bs-target="#surveyCollapse" aria-expanded="true" aria-controls="surveyCollapse" style="cursor:pointer;">
       Survey
     </div>
-    <div id="surveyCollapse" class="collapse show">
+    <div id="surveyCollapse" class="collapse">
       <div class="card-body">
         <!-- survey content here -->
       </div>
@@ -200,7 +244,7 @@
     <div class="card-header notes" data-bs-toggle="collapse" data-bs-target="#notesCollapse" aria-expanded="true" aria-controls="notesCollapse" style="cursor:pointer;">
       Notes
     </div>
-    <div id="notesCollapse" class="collapse show">
+    <div id="notesCollapse" class="collapse">
       <div class="card-body">
         <!-- notes content here -->
       </div>
