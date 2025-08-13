@@ -103,8 +103,24 @@
           <h4 class="mb-4">Details</h4>
 <div class="card mb-3">
   <div class="card-header evaluation">Evaluation</div>
-  <div class="card-body" id="evaluation"></div>
+  <div class="card-body">
+    <ul class="list-group">
+      <li class="list-group-item"><span class="info-label">Condition:</span> <span id="Condition"></span></li>
+      <li class="list-group-item"><span class="info-label">Integrity:</span> <span id="Integrity"></span></li>
+      <li class="list-group-item"><span class="info-label">Secondary Structure:</span> <span id="Secondary Structure"></span></li>
+      <li class="list-group-item"><span class="info-label">Secondary Structure Condition:</span> <span id="Secondary Structure Condition"></span></li>
+      <li class="list-group-item"><span class="info-label">Secondary Structure Integrity:</span> <span id="Secondary Structure Integrity"></span></li>
+      <li class="list-group-item"><span class="info-label">Landmark or National Register:</span> <span id="Landmark or National Register"></span></li>
+      <li class="list-group-item"><span class="info-label">Significant:</span> <span id="Significant"></span></li>
+      <li class="list-group-item"><span class="info-label">National Register Criterion:</span> <span id="National Register Criterion"></span></li>
+      <li class="list-group-item"><span class="info-label">Contributing to a National Register District:</span> <span id="Contributing to a National Register District"></span></li>
+      <li class="list-group-item"><span class="info-label">Potentially Contributing to a National Register District:</span> <span id="Potentially Contributing to a National Register District"></span></li>
+      <li class="list-group-item"><span class="info-label">Noteworthy Buildings Less Than 50 Years Old:</span> <span id="Noteworthy Buildings Less Than 50 Years Old"></span></li>
+      <li class="list-group-item"><span class="info-label">Reason for Significance:</span> <span id="Reason for Significance"></span></li>
+    </ul>
+  </div>
 </div>
+
 <div class="card mb-3">
   <div class="card-header architectural">Architectural</div>
   <div class="card-body" id="architectural"></div>
@@ -188,6 +204,25 @@
     ['Evaluation','Architectural','Research','Survey','Notes'].forEach(tab => {
       document.getElementById(tab.toLowerCase()).textContent = item[tab] || '';
     });
+
+
+    [
+  'Condition',
+  'Integrity',
+  'Secondary Structure',
+  'Secondary Structure Condition',
+  'Secondary Structure Integrity',
+  'Landmark or National Register',
+  'Significant',
+  'National Register Criterion',
+  'Contributing to a National Register District',
+  'Potentially Contributing to a National Register District',
+  'Noteworthy Buildings Less Than 50 Years Old',
+  'Reason for Significance'
+].forEach(field => {
+  document.getElementById(field)?.textContent = item[field] || '';
+});
+    
   }
 </script>
 
