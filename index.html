@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>VRF Historic Preservation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <!-- Bootstrap & DataTables CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+  <!-- jQuery & DataTables JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+
+  <style>
+    .info-label { font-weight: 500; }
+    .image-display { max-width: 100%; max-height: 300px; margin-bottom: 15px; object-fit: cover; }
+    /* Highlight selected row */
+    tr.selected {
+      background-color: #d0ebff !important;
+    }
+
+.card-header.evaluation { color: #003366; }       /* Dark Blue */
+.card-header.architectural { color: #ce2029; }    /* Firehydrant Red */
+.card-header.research { color: #964B00; }         /* Golden Yellow */
+.card-header.survey { color: #d2b48c; }           /* Tan */
+.card-header.notes { color: #5c4033; }            /* Brown */
+
+    body {
+  background-color: #083754;
+}
+
+.container {
+  background-color: #ffffff; /* or tan: #fdf6e3 */
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 1140px; /* You can adjust this */
+  margin: 50px auto;  /* Centers the container */
+}
+
+  </style>
+       <div class="text-center mb-3">
+    <img src="images/vrf-logo.png" alt="Historic Viewer Logo" style="max-height: 120px;">
+  </div>
+</head>
+<body>
+
+<div class="container">
+  <h2 class="text-center mb-4">Historic Property Viewer</h2>
+
+  <!-- DataTable -->
+  <table id="csvTable" class="display" style="width:100%">
+    <thead>
+      <tr>
+        <th>Street Number</th>
+        <th>Street</th>
+        <th>Architect</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <div class="row justify-content-center mt-5">
+    <div class="col-12">
+
+      <!-- Combined Address -->
+      <div style="text-align: center;">
+      <h3 id="combinedAddress" class="fs-5 fw-semibold mb-3">Select a property from the list</h3>      
+    
+      <img id="recordImage" class="image-display d-none" alt="">
+      <img id="recordImage2" class="image-display d-none" alt="">
+      </div>
+    
+    <!-- Property Information -->
+    <div class="card mb-3">
+    <div class="card-header evaluation collapsed" data-bs-toggle="collapse" data-bs-target="#propertyInfoCollapse" aria-expanded="false" aria-controls="propertyInfoCollapse" style="cursor:pointer;">
+    Property Information
+    </div>
+    <div id="propertyInfoCollapse" class="collapse" style="">
+    <div class="card-body">
+    <ul class="list-group">
+      <li class="list-group-item"><span class="info-label">Street Number:</span> <span id="Street Number"></span></li>
+      <li class="list-group-item"><span class="info-label">Former Street Number:</span> <span id="Former Street Number"></span></li>
+      <li class="list-group-item"><span class="info-label">Preparer:</span> <span id="Preparer"></span></li>
+      <li class="list-group-item"><span class="info-label">Street Name:</span> <span id="Street Name"></span></li>
+      <li class="list-group-item"><span class="info-label">Survey Date:</span> <span id="Survey Date"></span></li>        
+      <li class="list-group-item"><span class="info-label">PIN Number(s):</span> <span id="PIN Number(s)"></span></li>
+      <li class="list-group-item"><span class="info-label">Construction Date:</span> <span id="Construction Date"></span></li>
+      <li class="list-group-item"><span class="info-label">Architect:</span> <span id="Architect"></span></li>
+      <li class="list-group-item"><span class="info-label">Current Function:</span> <span id="Current Function"></span></li>
+      <li class="list-group-item"><span class="info-label">Historic Function:</span> <span id="Historic Function"></span></li>
+      <li class="list-group-item"><span class="info-label">Listing in Existing Survey:</span> <span id="Listing in Existing Survey"></span></li>
+      <li class="list-group-item"><span class="info-label">Survey Area:</span> <span id="Survey Area"></span></li>
+    </ul>
+    </div>
+    </div>
+    </div>
+    
+    <!-- Evaluation -->
+    <div class="card mb-3">
+    <div class="card-header evaluation collapsed" data-bs-toggle="collapse" data-bs-target="#evaluationCollapse" aria-expanded="false" aria-controls="evaluationCollapse" style="cursor:pointer;">
+    Evaluation
+    </div>
+    <div id="evaluationCollapse" class="collapse" style="">
+    <div class="card-body">
+    <ul class="list-group">
+      <li class="list-group-item"><span class="info-label">Condition:</span> <span id="Condition"></span></li>
+      <li class="list-group-item"><span class="info-label">Integrity:</span> <span id="Integrity"></span></li>
+      <li class="list-group-item"><span class="info-label">Secondary Structure:</span> <span id="Secondary Structure"></span></li>
+      <li class="list-group-item"><span class="info-label">Secondary Structure Condition:</span> <span id="Secondary Structure Condition"></span></li>
+      <li class="list-group-item"><span class="info-label">Secondary Structure Integrity:</span> <span id="Secondary Structure Integrity"></span></li>
+      <li class="list-group-item"><span class="info-label">Landmark or National Register:</span> <span id="Landmark or National Register"></span></li>
+      <li class="list-group-item"><span class="info-label">Significant:</span> <span id="Significant"></span></li>
+      <li class="list-group-item"><span class="info-label">National Register Criterion:</span> <span id="National Register Criterion"></span></li>
+      <li class="list-group-item"><span class="info-label">Contributing to a National Register District:</span> <span id="Contributing to a National Register District"></span></li>
+      <li class="list-group-item"><span class="info-label">Potentially Contributing to a National Register District:</span> <span id="Potentially Contributing to a National Register District"></span></li>
+      <li class="list-group-item"><span class="info-label">Noteworthy Buildings Less Than 50 Years Old:</span> <span id="Noteworthy Buildings Less Than 50 Years Old"></span></li>
+      <li class="list-group-item"><span class="info-label">Reason for Significance:</span> <span id="Reason for Significance"></span></li>
+    </ul>
+    </div>
+    </div>
+    </div>
+    
+    <!-- Architectural -->
+    <div class="card mb-3">
+    <div class="card-header architectural collapsed" data-bs-toggle="collapse" data-bs-target="#architecturalCollapse" aria-expanded="false" aria-controls="architecturalCollapse" style="cursor:pointer;">
+    Architectural
+    </div>
+    <div id="architecturalCollapse" class="collapse" style="">
+    <div class="card-body">
+    <ul class="list-group">
+      <!-- your architectural list items here -->
+      <!-- ... -->
+    </ul>
+    </div>
+    </div>
+    </div>
+    
+    <!-- Research -->
+    <div class="card mb-3">
+    <div class="card-header research collapsed" data-bs-toggle="collapse" data-bs-target="#researchCollapse" aria-expanded="false" aria-controls="researchCollapse" style="cursor:pointer;">
+    Research
+    </div>
+    <div id="researchCollapse" class="collapse" style="">
+    <div class="card-body">
+    <ul class="list-group">
+      <!-- your research list items here -->
+      <!-- ... -->
+    </ul>
+    </div>
+    </div>
+    </div>
+    
+    <!-- Survey -->
+    <div class="card mb-3">
+    <div class="card-header survey collapsed" data-bs-toggle="collapse" data-bs-target="#surveyCollapse" aria-expanded="false" aria-controls="surveyCollapse" style="cursor:pointer;">
+    Survey
+    </div>
+    <div id="surveyCollapse" class="collapse" style="">
+    <div class="card-body">
+    <!-- survey content here -->
+    </div>
+    </div>
+    </div>
+    
+    <!-- Notes -->
+    <div class="card mb-3">
+    <div class="card-header notes collapsed" data-bs-toggle="collapse" data-bs-target="#notesCollapse" aria-expanded="false" aria-controls="notesCollapse" style="cursor:pointer;">
+    Notes
+    </div>
+    <div id="notesCollapse" class="collapse" style="">
+    <div class="card-body">
+    <!-- notes content here -->
+    </div>
+    </div>
+    </div>
+    
+    
+    </div>
+  </div> <!-- end row -->
+</div> <!-- end container -->
+
+<script>
+  // Simple CSV-to-array parser
+  function parseCSV(csv) {
+    const lines = csv.trim().split('\n');
+    const headers = lines.shift().split(',');
+    return lines.map(line => {
+      const cols = line.split(',');
+      const obj = {};
+      headers.forEach((h, i) => obj[h.trim()] = cols[i]?.trim() || '');
+      return obj;
+    });
+  }
+  
+  fetch('data.csv')
+    .then(res => res.text())
+    .then(text => {
+      const records = parseCSV(text);
+      const table = $('#csvTable').DataTable({
+        data: records,
+        columns: [
+          { data: 'Street Number' },
+          { data: 'Street' },
+          { data: 'Architect' }
+        ],
+        pageLength: 10,
+        lengthChange: false
+      });
+
+      $('#csvTable tbody').on('click', 'tr', function() {
+        $('#csvTable tbody tr').removeClass('selected');
+        $(this).addClass('selected');
+
+        const item = table.row(this).data();
+        displayRecord(item);
+      });
+    });
+
+  function displayRecord(item) {
+    // Combined address
+    document.getElementById('combinedAddress').textContent = (item['Street Number'] || '') + ' ' + (item['Street'] || '');
+
+    ['Street Number','Former Street Number','Street','PIN Number(s)',
+     'Construction Date','Architect','Category','Historic Function',
+     'Listing in Existing Survey','Survey Area'].forEach(f => {
+      document.getElementById(f).textContent = item[f] || '';
+    });
+
+    const img = document.getElementById('recordImage');
+    img.src = 'images/' + (item['Image'] || '');
+    img.classList.remove('d-none');
+
+    ['Evaluation','Architectural','Research','Survey','Notes'].forEach(tab => {
+      document.getElementById(tab.toLowerCase()).textContent = item[tab] || '';
+    });
+  }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+
+ columns: [
+          { data: 'Architect' },
+          { data: 'Condition' },
+          { data: 'Construction Date' },
+          { data: 'Contributing to a National Register District' },
+          { data: 'Current Function' },
+          { data: 'Former Street Number' },
+          { data: 'Historic Function' },
+          { data: 'Integrity' },
+          { data: 'Landmark or National Register' },
+          { data: 'Listing in Existing Survey' },
+          { data: 'National Register Criterion' },
+          { data: 'Noteworthy Buildings Less Than 50 Years Old' },
+          { data: 'PIN Number(s)' },
+          { data: 'Potentially Contributing to a  National Register District' },
+          { data: 'Reason for Significance' },
+          { data: 'Secondary Structure' },
+          { data: 'Secondary Structure Condition' },
+          { data: 'Secondary Structure Integrity' },
+          { data: 'Significant' },
+          { data: 'Street' },
+          { data: 'Street Number' },
+          { data: 'Survey Area' },
+          { data: 'Alterations' },
+          { data: 'Architect 1 Information' },
+          { data: 'Architect 2 Information' },
+          { data: 'Architectural Classification or Style' },
+          { data: 'Category' },
+          { data: 'Construction Cost' },
+          { data: 'Contractor 1 Information' },
+          { data: 'Contractor 2 Information' },
+          { data: 'Current Name' },
+          { data: 'Current Wall Material 1' },
+          { data: 'Current Wall Material 2' },
+          { data: 'Direction' },
+          { data: 'Door' },
+          { data: 'Door Detailing' },
+          { data: 'Dormers' },
+          { data: 'Foundation Material or Form' },
+          { data: 'Historic Name' },
+          { data: 'Landscape or Streetscape' },
+          { data: 'Listed in an Existing Survey' },
+          { data: 'Notes' },
+          { data: 'Number of Stories' },
+          { data: 'Origional Building Owner' },
+          { data: 'Origional Wall Material 1' },
+          { data: 'Origional Wall Material 2' },
+          { data: 'Ornamentation' },
+          { data: 'Permit' },
+          { data: 'Porch' },
+          { data: 'Preparer' },
+          { data: 'Preparer Organization or Entity' },
+          { data: 'Research or Archival Information' },
+          { data: 'Roof Material' },
+          { data: 'Roof Ornamentation' },
+          { data: 'Roof Type' },
+          { data: 'Significant Features' },
+          { data: 'Storefront Material' },
+          { data: 'Storm Door' },
+          { data: 'Subdivision' },
+          { data: 'Survey Date' },
+          { data: 'Vernacular Styles or Building Form' },
+          { data: 'Wall Detailing or Ornamentation' },
+          { data: 'Window Configuration' },
+          { data: 'Window Detail' },
+          { data: 'Window Material 1' },
+          { data: 'Window Material 2' },
+          { data: 'Window Storms' },
+          { data: 'Window Type' }
+        ]
+        
+    -->
