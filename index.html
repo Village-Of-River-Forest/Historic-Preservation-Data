@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>VRF Historic Preservation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap & DataTables CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+  <!-- jQuery & DataTables JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+
+  <style>
+    .info-label { font-weight: 500; }
+    .image-display { max-width: 100%; max-height: 300px; margin-bottom: 15px; object-fit: cover; }
+
+    /* Highlight selected row */
+    tr.selected {
+      background-color: #d0ebff !important;
+    }
+
+    body {
+      background-color: #083754;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 1140px;
+      margin: 50px auto;
+    }
+
+    .info-label {
+      font-weight: lighter;
+    }
+
+    .card-header {
+      position: relative;
+      user-select: none;
+      color: #003366;
+    }
+
+    .card-header::after {
+      content: ">";
+      position: absolute;
+      right: 20px;
+      font-size: 1.2em;
+      transition: transform 0.3s ease;
+    }
+
+    .card-header[aria-expanded="true"]::after {
+      content: "▼";
+    }
+
+    .card-header:hover {
+      background-color: #f0f0f0;
+    }
+
+    #csvTable_wrapper {
+  width: 100%;
+  max-width: 100%;
+}
+
+.dataTables_scrollBody {
+  max-height: 400px !important;  /* adjust height as needed */
+  overflow-y: auto !important;
+  overflow-x: hidden;
+}
+
+table.dataTable {
+  width: 100% !important;
+}
+
+  </style>
+</head>
+
+<body>
+
+  <div class="text-center mb-3">
+    <img src="images/vrf-logo.png" alt="Historic Viewer Logo" style="max-height: 120px;">
+  </div>
+
+  <div class="container">
+    <h2 class="text-center mb-4">Historic Property Viewer</h2>
+
+    <!-- DataTable -->
+    <table id="csvTable" class="display" style="width:100%">
+      <thead>
+        <tr>
+          <th>Street Number</th>
+          <th>Former Street Number</th>
+          <th>Street Name</th>
+          <th>PIN Number(s)</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-10">
+        <div class="row">
+          <div class="col-12">
+            <!-- Combined Address -->
+            <div style="text-align: center;">
+              <h3 id="combinedAddress" class="fs-5 fw-semibold mb-3">Select a property from the list</h3>
+              <img id="recordImage" class="image-display d-none" alt="" />
+              <img id="recordImage2" class="image-display d-none" alt="" />
+            </div>
+
+            <!-- Property Information -->
+            <div class="card mb-3">
+              <div class="card-header evaluation" data-bs-toggle="collapse" data-bs-target="#propertyInfoCollapse" aria-expanded="true" aria-controls="propertyInfoCollapse" style="cursor:pointer;">
+                Property Information
+              </div>
+              <div id="propertyInfoCollapse" class="collapse show">
+                <div class="card-body">
+                  <ul class="list-group">
+                    <li class="list-group-item"><span class="info-label">Street Number:</span> <span id="Street Number"></span></li>
+                    <li class="list-group-item"><span class="info-label">Former Street Number:</span> <span id="Former Street Number"></span></li>
+                    <li class="list-group-item"><span class="info-label">Preparer:</span> <span id="Preparer"></span></li>
+                    <li class="list-group-item"><span class="info-label">Street Name:</span> <span id="Street Name"></span></li>
+                    <li class="list-group-item"><span class="info-label">Survey Date:</span> <span id="Survey Date"></span></li>
+                    <li class="list-group-item"><span class="info-label">PIN Number(s):</span> <span id="PIN Number(s)"></span></li>
+                    <li class="list-group-item"><span class="info-label">Construction Date:</span> <span id="Construction Date"></span></li>
+                    <li class="list-group-item"><span class="info-label">Architect:</span> <span id="Architect"></span></li>
+                    <li class="list-group-item"><span class="info-label">Current Function:</span> <span id="Current Function"></span></li>
+                    <li class="list-group-item"><span class="info-label">Historic Function:</span> <span id="Historic Function"></span></li>
+                    <li class="list-group-item"><span class="info-label">Listing in Existing Survey:</span> <span id="Listing in Existing Survey"></span></li>
+                    <li class="list-group-item"><span class="info-label">Survey Area:</span> <span id="Survey Area"></span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Evaluation -->
+            <div class="card mb-3">
+              <div class="card-header evaluation" data-bs-toggle="collapse" data-bs-target="#evaluationCollapse" aria-expanded="true" aria-controls="evaluationCollapse" style="cursor:pointer;">
+                Evaluation
+              </div>
+              <div id="evaluationCollapse" class="collapse">
+                <div class="card-body">
+                  <ul class="list-group">
+                    <li class="list-group-item"><span class="info-label">Condition:</span> <span id="Condition"></span></li>
+                    <li class="list-group-item"><span class="info-label">Integrity:</span> <span id="Integrity"></span></li>
+                    <li class="list-group-item"><span class="info-label">Secondary Structure:</span> <span id="Secondary Structure"></span></li>
+                    <li class="list-group-item"><span class="info-label">Secondary Structure Condition:</span> <span id="Secondary Structure Condition"></span></li>
+                    <li class="list-group-item"><span class="info-label">Secondary Structure Integrity:</span> <span id="Secondary Structure Integrity"></span></li>
+                    <li class="list-group-item"><span class="info-label">Landmark or National Register:</span> <span id="Landmark or National Register"></span></li>
+                    <li class="list-group-item"><span class="info-label">Significant:</span> <span id="Significant"></span></li>
+                    <li class="list-group-item"><span class="info-label">National Register Criterion:</span> <span id="National Register Criterion"></span></li>
+                    <li class="list-group-item"><span class="info-label">Contributing to a National Register District:</span> <span id="Contributing to a National Register District"></span></li>
+                    <li class="list-group-item"><span class="info-label">Potentially Contributing to a National Register District:</span> <span id="Potentially Contributing to a National Register District"></span></li>
+                    <li class="list-group-item"><span class="info-label">Noteworthy Buildings Less Than 50 Years Old:</span> <span id="Noteworthy Buildings Less Than 50 Years Old"></span></li>
+                    <li class="list-group-item"><span class="info-label">Reason for Significance:</span> <span id="Reason for Significance"></span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Architectural -->
+            <div class="card mb-3">
+              <div class="card-header architectural" data-bs-toggle="collapse" data-bs-target="#architecturalCollapse" aria-expanded="true" aria-controls="architecturalCollapse" style="cursor:pointer;">
+                Architectural
+              </div>
+              <div id="architecturalCollapse" class="collapse">
+                <div class="card-body">
+                  <ul class="list-group">
+                    <li class="list-group-item"><span class="info-label">Architectural Classification or Style:</span> <span id="Architectural Classification or Style"></span></li>
+                    <li class="list-group-item"><span class="info-label">Ornamentation:</span> <span id="Ornamentation"></span></li>
+                    <li class="list-group-item"><span class="info-label">Vernacular Styles or Building Form:</span> <span id="Vernacular Styles or Building Form"></span></li>
+                    <!-- Add the rest as needed -->
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Research -->
+            <div class="card mb-3">
+              <div class="card-header research" data-bs-toggle="collapse" data-bs-target="#researchCollapse" aria-expanded="true" aria-controls="researchCollapse" style="cursor:pointer;">
+                Research
+              </div>
+              <div id="researchCollapse" class="collapse">
+                <div class="card-body">
+                  <ul class="list-group">
+                    <li class="list-group-item"><span class="info-label">Historic Name:</span> <span id="Historic Name"></span></li>
+                    <li class="list-group-item"><span class="info-label">Current Name:</span> <span id="Current Name"></span></li>
+                    <li class="list-group-item"><span class="info-label">Construction Cost:</span> <span id="Construction Cost"></span></li>
+                    <!-- Add more as needed -->
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Survey -->
+            <div class="card mb-3">
+              <div class="card-header survey" data-bs-toggle="collapse" data-bs-target="#surveyCollapse" aria-expanded="true" aria-controls="surveyCollapse" style="cursor:pointer;">
+                Survey
+              </div>
+              <div id="surveyCollapse" class="collapse">
+                <div class="card-body">
+                  <p id="survey"></p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Notes -->
+            <div class="card mb-3">
+              <div class="card-header notes" data-bs-toggle="collapse" data-bs-target="#notesCollapse" aria-expanded="true" aria-controls="notesCollapse" style="cursor:pointer;">
+                Notes
+              </div>
+              <div id="notesCollapse" class="collapse">
+                <div class="card-body">
+                  <p id="notes"></p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- App JS -->
+  <script>
+    function parseCSV(csv) {
+      const lines = csv.trim().split('\n');
+      const headers = lines.shift().split(',');
+      return lines.map(line => {
+        const cols = line.split(',');
+        const obj = {};
+        headers.forEach((h, i) => obj[h.trim()] = cols[i]?.trim() || '');
+        return obj;
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      fetch('VRF_Historic_Data_Public.csv')
+        .then(res => res.text())
+        .then(text => {
+          const records = parseCSV(text);
+          const table = $('#csvTable').DataTable({
+            data: records,
+            columns: [
+              { data: 'Street Number' },
+              { data: 'Former Street Number' },
+              { data: 'Street Name' },
+              { data: 'PIN Number(s)' }
+            ],
+            pageLength: 10,
+            lengthChange: false
+          });
+
+          $('#csvTable tbody').on('click', 'tr', function () {
+            $('#csvTable tbody tr').removeClass('selected');
+            $(this).addClass('selected');
+            const item = table.row(this).data();
+            displayRecord(item);
+          });
+        });
+    });
+
+    function displayRecord(item) {
+      document.getElementById('combinedAddress').textContent = (item['Street Number'] || '') + ' ' + (item['Street Name'] || '');
+
+      [
+        'Street Number', 'Former Street Number', 'Street Name', 'Preparer', 'Survey Date',
+        'PIN Number(s)', 'Construction Date', 'Architect', 'Current Function',
+        'Historic Function', 'Listing in Existing Survey', 'Survey Area',
+        'Condition', 'Integrity', 'Secondary Structure', 'Secondary Structure Condition',
+        'Secondary Structure Integrity', 'Landmark or National Register', 'Significant',
+        'National Register Criterion', 'Contributing to a National Register District',
+        'Potentially Contributing to a National Register District',
+        'Noteworthy Buildings Less Than 50 Years Old', 'Reason for Significance',
+        'Architectural Classification or Style', 'Ornamentation', 'Vernacular Styles or Building Form',
+        'Original Building Owner', 'Historic Name', 'Current Name', 'Construction Cost',
+        'Architect 1 Information', 'Architect 2 Information', 'Contractor Information',
+        'Developer Information', 'Research or Archival Information', 'Permit',
+        'Subdivision', 'Landscape or Streetscape'
+      ].forEach(field => {
+        const el = document.getElementById(field);
+        if (el) el.textContent = item[field] || '';
+      });
+
+      ['evaluation', 'architectural', 'research', 'survey', 'notes'].forEach(tab => {
+        const el = document.getElementById(tab);
+        if (el) el.textContent = item[tab] || '';
+      });
+
+      const img = document.getElementById('recordImage');
+      img.src = 'images/' + (item['Photo 1'] || '');
+      img.classList.remove('d-none');
+
+      const img2 = document.getElementById('recordImage2');
+      img2.src = 'images/' + (item['Photo 2'] || '');
+      img2.classList.remove('d-none');
+    }
+  </script>
+</body>
+</html>
