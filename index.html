@@ -194,7 +194,7 @@
     });
   }
   
-  fetch('data.csv')
+  fetch('VRF_Historic_Data_Public.csv')
     .then(res => res.text())
     .then(text => {
       const records = parseCSV(text);
@@ -334,4 +334,5 @@
           { data: 'Window Type' }
         ]
         
+
     -->
